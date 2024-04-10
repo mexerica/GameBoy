@@ -6,7 +6,11 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JFileChooser;
 
 public class Main {   
    static int[] memo = new int[65536];
@@ -31,21 +35,34 @@ public class Main {
         info.setText("registers: " + Arrays.toString(registers));
         info.setBounds(0, 288, 400, 50);
 
-        /* 
-        JPanel info = new JPanel();
-        info.setBackground(Color.red);
-        info.setBounds(0, 288,500, 212);
-        */
+        JButton select = new JButton();
+        select.setText("Selecione  o arquivo");
+        select.setBounds(0, 288, 320, 50);
+        select.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    select.setEnabled(false);
+                }
+                
+            }
+        });
+
+        JButton reset = new JButton();
+        reset.setText("Resete o console");
+        reset.setBounds(0, 338, 320, 50);
+        reset.setEnabled(false);
         
         JFrame frame = new JFrame();
-        frame.setSize(500,500);
+        frame.setSize(320,500);
         frame.setResizable(false);
         frame.setLayout(null);
         frame.setTitle("Isso aqui é um titulo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         for (int i = 0; i < arr.length; i++) for (int j = 0; j < arr[i].length; j++) frame.add(arr[i][j]);
-        frame.add(info);
-        //frame.add(label1);
+        frame.add(select);
+        frame.add(reset);
         frame.setVisible(true);         
    }
 
@@ -56,6 +73,7 @@ public class Main {
    public void WriteByte(int address , int value) {
         memo[address] = value;
    }
+
 
    public void Instrunctions(String type, int target1, int target2){
         switch(type) {
