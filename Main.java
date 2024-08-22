@@ -3,14 +3,11 @@ import java.util.Scanner;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JFileChooser;
 
 public class Main {   
    static int[] memo = new int[65536];
@@ -22,47 +19,20 @@ public class Main {
    static boolean progress = true; 
    
    public static void main(String[] args) {
-        JPanel[][] arr = new JPanel[160][144];
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[i].length; j++) {
-                arr[i][j] = new JPanel();
-                arr[i][j].setBackground(Color.black);
-                arr[i][j].setBounds(i * 2, j * 2,2,2);
-            }
-        }
+        Display Display = new Display();
 
-        JLabel info = new JLabel();
-        info.setText("registers: " + Arrays.toString(registers));
-        info.setBounds(0, 288, 400, 50);
-
-        JButton select = new JButton();
-        select.setText("Selecione  o arquivo");
-        select.setBounds(0, 288, 320, 50);
-        select.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JFileChooser fileChooser = new JFileChooser();
-                int result = fileChooser.showOpenDialog(null);
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    select.setEnabled(false);
-                }
-                
-            }
-        });
-
-        JButton reset = new JButton();
-        reset.setText("Resete o console");
-        reset.setBounds(0, 338, 320, 50);
-        reset.setEnabled(false);
+        JPanel[][] screen = Display.Screen();
         
         JFrame frame = new JFrame();
-        frame.setSize(320,500);
+        frame.setSize(320,416);
         frame.setResizable(false);
         frame.setLayout(null);
         frame.setTitle("Isso aqui é um titulo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        for (int i = 0; i < arr.length; i++) for (int j = 0; j < arr[i].length; j++) frame.add(arr[i][j]);
-        frame.add(select);
-        frame.add(reset);
+        for (int i = 0; i < screen.length; i++) 
+            for (int j = 0; j < screen[i].length; j++) frame.add(screen[i][j]);
+        frame.add(Display.Select());
+        frame.add(Display.Reset());
         frame.setVisible(true);         
    }
 
@@ -101,24 +71,3 @@ public class Main {
         }
    }
 }
-
-/*        
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter the file: ");
-        String file = scan.nextLine(); 
-        scan.close();   
-        try {
-            FileReader reader = new FileReader(file);
-            int data = reader.read();
-            String content = "";
-            while (data != -1) {
-                content += (char) data;
-                data = reader.read();
-            }
-            reader.close();
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-*/
