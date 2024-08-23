@@ -1,6 +1,7 @@
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JFrame;
 import java.awt.Color;
 
 public class Display {
@@ -39,5 +40,22 @@ public class Display {
             }
         });
         return select;
+    }
+
+    public JFrame Interface() {
+        JPanel[][] screen = Screen();
+        
+        JFrame frame = new JFrame();
+        frame.setSize(320,416);
+        frame.setResizable(false);
+        frame.setLayout(null);
+        frame.setTitle("Isso aqui é um titulo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        for (int i = 0; i < screen.length; i++) 
+            for (int j = 0; j < screen[i].length; j++) frame.add(screen[i][j]);
+        frame.add(Select());
+        frame.add(Reset());
+        frame.setVisible(true);  
+        return frame;
     }
 }
