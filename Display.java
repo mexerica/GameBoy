@@ -1,7 +1,9 @@
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;  
 import java.awt.Color;
 
 public class Display {
@@ -32,9 +34,12 @@ public class Display {
         select.setBounds(0, 288, 320, 50);
         select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("game boy roms", "gb");
                 JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileFilter(filter);
                 int result = fileChooser.showOpenDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION) {
+                    select.setText("Selecione outro arquivo");
                     select.setEnabled(false);
                 }
             }
@@ -42,11 +47,21 @@ public class Display {
         return select;
     }
 
-    public JFrame Interface() {
+    public JLabel Info(short[] registers) {
+        JLabel Info = new JLabel();
+        final String n = "AF " + registers[0] + "AF " + registers[0];
+        Info.setSize(300,100); 
+
+        Info.setText(n);
+        Info.setBounds(330, 0, 50, 50);
+        Info.setVisible(true);
+        return Info;
+    }
+
+    public JFrame Interface(short[] registers) {
         JPanel[][] screen = Screen();
-        
         JFrame frame = new JFrame();
-        frame.setSize(320,416);
+        frame.setSize(480,416);
         frame.setResizable(false);
         frame.setLayout(null);
         frame.setTitle("Isso aqui é um titulo");
@@ -55,6 +70,7 @@ public class Display {
             for (int j = 0; j < screen[i].length; j++) frame.add(screen[i][j]);
         frame.add(Select());
         frame.add(Reset());
+        frame.add(Info(registers));
         frame.setVisible(true);  
         return frame;
     }

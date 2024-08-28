@@ -17,7 +17,7 @@ public class Main {
    public static void main(String[] args) {
         Display Display = new Display();
         Instrunctions Instrunctions = new Instrunctions();  
-        Display.Interface(); 
+        Display.Interface(registers); 
    } 
 
    public int ReadByte(int address) {
