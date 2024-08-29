@@ -47,21 +47,21 @@ public class Display {
         return select;
     }
 
-    public JLabel Info(short[] registers) {
+    public JLabel Info(short[] registers, int[] flags, short PC, short SP) {
         JLabel Info = new JLabel();
-        final String n = "AF " + registers[0] + "AF " + registers[0];
-        Info.setSize(300,100); 
-
-        Info.setText(n);
-        Info.setBounds(330, 0, 50, 50);
+        final String x = "AF:" + registers[0] + " BC:" + registers[1] + " DE:" + registers[2] + " HL:" + registers[3];
+        final String y = " Z:" + flags[0]+ " Sub:" + flags[1] + " HC:" + flags[2] + " C:" + flags[3];
+        final String z = " PC:" + PC + " SP: " + SP;
+        Info.setText(x + y + z);
+        Info.setBounds(0, 380, 500, 50);
         Info.setVisible(true);
         return Info;
     }
 
-    public JFrame Interface(short[] registers) {
+    public JFrame Interface(short[] registers, int[] flags, short PC, short SP) {
         JPanel[][] screen = Screen();
         JFrame frame = new JFrame();
-        frame.setSize(480,416);
+        frame.setSize(320,456);
         frame.setResizable(false);
         frame.setLayout(null);
         frame.setTitle("Isso aqui é um titulo");
@@ -70,7 +70,7 @@ public class Display {
             for (int j = 0; j < screen[i].length; j++) frame.add(screen[i][j]);
         frame.add(Select());
         frame.add(Reset());
-        frame.add(Info(registers));
+        frame.add(Info(registers, flags, PC, SP));
         frame.setVisible(true);  
         return frame;
     }
