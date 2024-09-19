@@ -19,7 +19,6 @@ public class Display {
         return screen;
     }
 
-
     public JButton Reset() {
         JButton resetBtn = new JButton();
         resetBtn.setText("Resete o console");
@@ -41,11 +40,15 @@ public class Display {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     select.setText("Selecione outro arquivo");
                     select.setEnabled(false);
+                    GameHeader GameHeader = new GameHeader();
+                    GameHeader.Leitura(fileChooser);
                 }
             }
         });
         return select;
     }
+
+
 
     public JLabel Info(short[] registers, int[] flags, short PC, short SP) {
         JLabel Info = new JLabel();
