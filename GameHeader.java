@@ -8,11 +8,12 @@ import java.io.File;
 public class GameHeader {
     public void Leitura(JFileChooser fileChooser) {
         File file = fileChooser.getSelectedFile();
+        String data = "";
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-            }
+            for (String line = br.readLine(); line != null; line = br.readLine()) data += line; 
+            Display Display = new Display();
+            Display.alterarTitulo("aaa");
+            //System.out.println(data);
         } catch (IOException e) {
             System.err.println("Erro ao ler o arquivo: " + e.getMessage());
         }

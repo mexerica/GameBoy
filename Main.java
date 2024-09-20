@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Main {   
-   static byte[] memo = new int[65536];
+   static int[] memo = new int[65536];
    static int[] flags = {0, 0, 0, 0};// zero, subtraction, half carry and carry
    static short[] registers = {0,0,0,0}; //AF, BC, DE, HL
    //static byte registers = {0, 0, 0, 0, 0, 0, 0 ,0};
@@ -18,7 +18,7 @@ public class Main {
         Display Display = new Display();
         Instrunctions Instrunctions = new Instrunctions();  
         Display.Interface(registers, flags, PC, SP); 
-   } 
+   }
 
    public int ReadByte(int address) {
         return memo[address];
