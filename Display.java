@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import java.awt.Color;
 
 public class Display {
+    private JFrame frame = new JFrame();
+
     public JPanel[][] Screen() {
         JPanel[][] screen = new JPanel[160][144];
         for (int i = 0; i < screen.length; i++) {
@@ -42,13 +44,12 @@ public class Display {
                     select.setEnabled(false);
                     GameHeader GameHeader = new GameHeader();
                     GameHeader.Leitura(fileChooser);
+                    frame.setTitle(fileChooser.getSelectedFile().getName());
                 }
             }
         });
         return select;
     }
-
-
 
     public JLabel Info(short[] registers, int[] flags, short PC, short SP) {
         JLabel Info = new JLabel();
@@ -63,7 +64,6 @@ public class Display {
 
     public JFrame Interface(short[] registers, int[] flags, short PC, short SP) {
         JPanel[][] screen = Screen();
-        JFrame frame = new JFrame();
         frame.setSize(320,456);
         frame.setResizable(false);
         frame.setLayout(null);
